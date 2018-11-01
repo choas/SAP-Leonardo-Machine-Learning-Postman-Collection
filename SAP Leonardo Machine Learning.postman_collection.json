@@ -1,0 +1,470 @@
+{
+  "info": {
+    "_postman_id": "29654798-00bc-478f-9814-2a1ec6783c0f",
+    "name": "SAP Leonardo Machine Learning Retrain",
+    "description": "Collection of SAP Leonardo ML call to train a new model.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Generate Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "82934afb-fa34-4d11-aaa8-a42450259f88",
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Set Bearer Token\", function () {",
+              "    var data = pm.response.json();",
+              "    pm.environment.set(\"Bearer Token\", \"Bearer \" + data.access_token);",
+              "});",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "",
+              "description": "replace this value with the clientid value (ml_key)",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "",
+              "description": "replace this value with the clientsecret value (ml_key)",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://REPLACE_ME.authentication.eu10.hana.ondemand.com/oauth/token",
+          "protocol": "https",
+          "host": [
+            "REPLACE_ME",
+            "authentication",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "oauth",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Storage",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/storage",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "storage"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Train",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataset\": \"fashion_data\",\n  \"modelName\": \"apparel_fashion\"\n}\n\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/jobs",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "jobs"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Train (flowers)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataset\": \"flowers\",\n  \"modelName\": \"flowers\"\n}\n\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/jobs",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "jobs"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Jobs",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataset\": \"fashion_data_02\",\n  \"modelName\": \"apparel_fashion\"\n}\n\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/jobs",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "jobs"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Deploy",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"modelName\": \"apparel_fashion\",\n  \"modelVersion\": \"1\"\n}\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/deployments",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "deployments"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Deploy (flowers)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"modelName\": \"flowers\",\n  \"modelVersion\": \"1\"\n}\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/deployments",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "deployments"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Models",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataset\": \"fashion_data_02\",\n  \"modelName\": \"apparel_fashion\"\n}\n\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/models",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-image-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "retraining",
+            "models"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Image Classification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "files",
+              "type": "file"
+            },
+            {
+              "key": "",
+              "value": "",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://mlftrial-image-classifier.cfapps.eu10.hana.ondemand.com/api/v2/image/classification/models/apparel_fashion/versions/1",
+          "protocol": "https",
+          "host": [
+            "mlftrial-image-classifier",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "classification",
+            "models",
+            "apparel_fashion",
+            "versions",
+            "1"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "Image Classification (flowers)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "files",
+              "type": "file"
+            },
+            {
+              "key": "",
+              "value": "",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://mlftrial-image-classifier.cfapps.eu10.hana.ondemand.com/api/v2/image/classification/models/flowers/versions/1",
+          "protocol": "https",
+          "host": [
+            "mlftrial-image-classifier",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "image",
+            "classification",
+            "models",
+            "flowers",
+            "versions",
+            "1"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    }
+  ]
+}
