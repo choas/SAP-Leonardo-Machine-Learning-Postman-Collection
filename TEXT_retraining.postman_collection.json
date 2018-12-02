@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "c8b478ef-be88-4c2d-ac50-785001239409",
-    "name": "SAP Leonardo ML IMAGE Retrain",
+    "name": "SAP Leonardo ML TEXT Retrain",
     "description": "Collection of SAP Leonardo ML call to train a new model.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
@@ -111,25 +111,21 @@
       "response": []
     },
     {
-      "name": "Train",
+      "name": "Storage GET",
       "request": {
-        "method": "POST",
+        "method": "GET",
         "header": [
           {
             "key": "Authorization",
             "value": "{{Bearer Token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"dataset\": \"fashion_data\",\n  \"modelName\": \"apparel_fashion\"\n}\n\n"
+          "raw": ""
         },
         "url": {
-          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/jobs",
+          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/storage",
           "protocol": "https",
           "host": [
             "mlftrial-retrain-image-api",
@@ -144,7 +140,7 @@
             "v2",
             "image",
             "retraining",
-            "jobs"
+            "storage"
           ]
         },
         "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
@@ -152,7 +148,7 @@
       "response": []
     },
     {
-      "name": "Train (flowers)",
+      "name": "Train Text",
       "request": {
         "method": "POST",
         "header": [
@@ -167,13 +163,13 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"dataset\": \"flowers\",\n  \"modelName\": \"flowers\"\n}\n\n"
+          "raw": "{\n  \"dataset\": \"sentiment\",\n  \"modelName\": \"sentiment\",\n  \"preprocessingLanguage\": \"en\",\n  \"completionTime\": 24,\n  \"memory\": 8192\n}"
         },
         "url": {
-          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/jobs",
+          "raw": "https://mlftrial-retrain-text-linear-api.cfapps.eu10.hana.ondemand.com/api/v2/text/retraining/jobs",
           "protocol": "https",
           "host": [
-            "mlftrial-retrain-image-api",
+            "mlftrial-retrain-text-linear-api",
             "cfapps",
             "eu10",
             "hana",
@@ -183,7 +179,7 @@
           "path": [
             "api",
             "v2",
-            "image",
+            "text",
             "retraining",
             "jobs"
           ]
@@ -211,10 +207,10 @@
           "raw": "{\n  \"dataset\": \"fashion_data_02\",\n  \"modelName\": \"apparel_fashion\"\n}\n\n"
         },
         "url": {
-          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/jobs",
+          "raw": "https://mlftrial-retrain-text-linear-api.cfapps.eu10.hana.ondemand.com/api/v2/text/retraining/jobs",
           "protocol": "https",
           "host": [
-            "mlftrial-retrain-image-api",
+            "mlftrial-retrain-text-linear-api",
             "cfapps",
             "eu10",
             "hana",
@@ -224,7 +220,7 @@
           "path": [
             "api",
             "v2",
-            "image",
+            "text",
             "retraining",
             "jobs"
           ]
@@ -234,7 +230,7 @@
       "response": []
     },
     {
-      "name": "Deploy",
+      "name": "Deploy TXT",
       "request": {
         "method": "POST",
         "header": [
@@ -249,13 +245,13 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"modelName\": \"apparel_fashion\",\n  \"modelVersion\": \"1\"\n}\n"
+          "raw": "{\n  \"modelName\": \"sentiment\",\n  \"modelVersion\": \"1\"\n}\n"
         },
         "url": {
-          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/deployments",
+          "raw": "https://mlftrial-retrain-text-linear-api.cfapps.eu10.hana.ondemand.com/api/v2/text/retraining/deployments",
           "protocol": "https",
           "host": [
-            "mlftrial-retrain-image-api",
+            "mlftrial-retrain-text-linear-api",
             "cfapps",
             "eu10",
             "hana",
@@ -265,48 +261,7 @@
           "path": [
             "api",
             "v2",
-            "image",
-            "retraining",
-            "deployments"
-          ]
-        },
-        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
-      },
-      "response": []
-    },
-    {
-      "name": "Deploy (flowers)",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "{{Bearer Token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"modelName\": \"flowers\",\n  \"modelVersion\": \"1\"\n}\n"
-        },
-        "url": {
-          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/deployments",
-          "protocol": "https",
-          "host": [
-            "mlftrial-retrain-image-api",
-            "cfapps",
-            "eu10",
-            "hana",
-            "ondemand",
-            "com"
-          ],
-          "path": [
-            "api",
-            "v2",
-            "image",
+            "text",
             "retraining",
             "deployments"
           ]
@@ -334,10 +289,10 @@
           "raw": "{\n  \"dataset\": \"fashion_data_02\",\n  \"modelName\": \"apparel_fashion\"\n}\n\n"
         },
         "url": {
-          "raw": "https://mlftrial-retrain-image-api.cfapps.eu10.hana.ondemand.com/api/v2/image/retraining/models",
+          "raw": "https://mlftrial-retrain-text-linear-api.cfapps.eu10.hana.ondemand.com/api/v2/text/retraining/models",
           "protocol": "https",
           "host": [
-            "mlftrial-retrain-image-api",
+            "mlftrial-retrain-text-linear-api",
             "cfapps",
             "eu10",
             "hana",
@@ -347,7 +302,7 @@
           "path": [
             "api",
             "v2",
-            "image",
+            "text",
             "retraining",
             "models"
           ]
@@ -357,39 +312,28 @@
       "response": []
     },
     {
-      "name": "Image Classification",
+      "name": "modelServers",
       "request": {
-        "method": "POST",
+        "method": "GET",
         "header": [
           {
             "key": "Authorization",
             "value": "{{Bearer Token}}"
           },
           {
-            "key": "Accept",
+            "key": "Content-Type",
             "value": "application/json"
           }
         ],
         "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "files",
-              "type": "file"
-            },
-            {
-              "key": "",
-              "value": "",
-              "type": "text",
-              "disabled": true
-            }
-          ]
+          "mode": "raw",
+          "raw": "{\n  \"modelName\": \"apparel_fashion\",\n  \"modelVersion\": \"1\"\n}\n"
         },
         "url": {
-          "raw": "https://mlftrial-image-classifier.cfapps.eu10.hana.ondemand.com/api/v2/image/classification/models/apparel_fashion/versions/1",
+          "raw": "https://mlftrial-deployment-api.cfapps.eu10.hana.ondemand.com/api/v2/modelServers",
           "protocol": "https",
           "host": [
-            "mlftrial-image-classifier",
+            "mlftrial-deployment-api",
             "cfapps",
             "eu10",
             "hana",
@@ -399,12 +343,7 @@
           "path": [
             "api",
             "v2",
-            "image",
-            "classification",
-            "models",
-            "apparel_fashion",
-            "versions",
-            "1"
+            "modelServers"
           ]
         },
         "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
@@ -412,7 +351,49 @@
       "response": []
     },
     {
-      "name": "Image Classification (flowers)",
+      "name": "Deploy DELETE",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{Bearer Token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"modelName\": \"apparel_fashion\",\n  \"modelVersion\": \"1\"\n}\n"
+        },
+        "url": {
+          "raw": "https://mlftrial-retrain-text-linear-api.cfapps.eu10.hana.ondemand.com/api/v2/text/retraining/deployments/ms-a46b2b9e-e084-4f20-94a2-e4fc36f0d503",
+          "protocol": "https",
+          "host": [
+            "mlftrial-retrain-text-linear-api",
+            "cfapps",
+            "eu10",
+            "hana",
+            "ondemand",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v2",
+            "text",
+            "retraining",
+            "deployments",
+            "ms-a46b2b9e-e084-4f20-94a2-e4fc36f0d503"
+          ]
+        },
+        "description": "Generated from a curl request: \ncurl --request POST --url https://sandbox.api.sap.com/ml/imageclassifier/inference_sync --header 'APIKey: jdoPIYDGORj48R7pAjkF1YupPUkDVGJ3' --header 'Accept: application/json' --header 'content-type: multipart/form-data; boundary=---011000010111000001101001' --form 'files=@./Two_dancers.jpg'"
+      },
+      "response": []
+    },
+    {
+      "name": "TXT",
       "request": {
         "method": "POST",
         "header": [
@@ -429,22 +410,25 @@
           "mode": "formdata",
           "formdata": [
             {
-              "key": "files",
-              "type": "file"
+              "key": "texts",
+              "value": "Starting sampling of a next batch of dark beers. This one has nice velvety taste, but way too sweet. 🍺 - Drinking a Świderskie by Cerkom @ Oporów —",
+              "description": "positiv -  https://twitter.com/Sygyzmundovych/status/1061608300490440704",
+              "type": "text"
             },
             {
-              "key": "",
-              "value": "",
+              "key": "texts",
+              "value": "no sports today ... the whole day was so miserable wet  ... sun, where are you?",
+              "description": "negativ",
               "type": "text",
               "disabled": true
             }
           ]
         },
         "url": {
-          "raw": "https://mlftrial-image-classifier.cfapps.eu10.hana.ondemand.com/api/v2/image/classification/models/flowers/versions/1",
+          "raw": "https://mlftrial-text-classifier.cfapps.eu10.hana.ondemand.com/api/v2/text/classification/models/sentiment/versions/1",
           "protocol": "https",
           "host": [
-            "mlftrial-image-classifier",
+            "mlftrial-text-classifier",
             "cfapps",
             "eu10",
             "hana",
@@ -454,10 +438,10 @@
           "path": [
             "api",
             "v2",
-            "image",
+            "text",
             "classification",
             "models",
-            "flowers",
+            "sentiment",
             "versions",
             "1"
           ]
